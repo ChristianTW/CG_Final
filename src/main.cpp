@@ -84,6 +84,10 @@ int main(int argc, char *argv[])
     /// Load Image
     Canis::GLTexture texture = Canis::LoadImageGL("assets/textures/glass.png", true);
     Canis::GLTexture grassTexture = Canis::LoadImageGL("assets/textures/grass.png", false);
+    Canis::GLTexture woodTexture = Canis::LoadImageGL("assets/textures/oak_planks.png", true);
+    Canis::GLTexture stoneTexture = Canis::LoadImageGL("assets/textures/cobblestone.png", true);
+    Canis::GLTexture brickTexture = Canis::LoadImageGL("assets/textures/bricks.png", true);
+    Canis::GLTexture grassBlockTexture = Canis::LoadImageGL("assets/textures/grass_block_top.png", true);
     Canis::GLTexture textureSpecular = Canis::LoadImageGL("assets/textures/container2_specular.png", true);
     /// End of Image Loading
 
@@ -125,6 +129,42 @@ int main(int argc, char *argv[])
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
                     world.Spawn(entity);
                     break;
+                case 3: // places a wood block
+                    entity.tag = "wood";
+                    entity.albedo = &woodTexture;
+                    entity.specular = &textureSpecular;
+                    entity.model = &cubeModel;
+                    entity.shader = &shader;
+                    entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
+                    world.Spawn(entity);
+                    break;
+                case 4: // places a stone block
+                    entity.tag = "stone";
+                    entity.albedo = &stoneTexture;
+                    entity.specular = &textureSpecular;
+                    entity.model = &cubeModel;
+                    entity.shader = &shader;
+                    entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
+                    world.Spawn(entity);
+                    break;
+                case 5: // places a stone block
+                    entity.tag = "brick";
+                    entity.albedo = &brickTexture;
+                    entity.specular = &textureSpecular;
+                    entity.model = &cubeModel;
+                    entity.shader = &shader;
+                    entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
+                    world.Spawn(entity);
+                    break;
+                case 6: // places a stone block
+                    entity.tag = "grassBlock";
+                    entity.albedo = &grassBlockTexture;
+                    entity.specular = &textureSpecular;
+                    entity.model = &cubeModel;
+                    entity.shader = &shader;
+                    entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
+                    world.Spawn(entity);
+                    break;
                 default:
                     break;
                 }
@@ -140,6 +180,13 @@ int main(int argc, char *argv[])
     {
         deltaTime = frameRateManager.StartFrame();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        //How to move a specific tagged thing (use for fire)
+        std::vector<Canis::Entity*> glass = world.GetEntitiesWithTag("grass");
+        for(Canis::Entity* g : glass)
+        {
+            g->transform.rotation.x += deltaTime;
+        }
 
         world.Update(deltaTime);
         world.Draw(deltaTime);
