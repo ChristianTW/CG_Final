@@ -92,10 +92,20 @@ int main(int argc, char *argv[])
     Canis::GLTexture knux = Canis::LoadImageGL("assets/textures/KnuxHolding.jpg", true);
     Canis::GLTexture textureSpecular = Canis::LoadImageGL("assets/textures/container2_specular.png", true);
     /// End of Image Loading
+    /// Fire Texture
+    Canis::GLTexture fireList[4] = {
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_1.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_2.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_3.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_4.png", true)
+    };
+    /// End if fire texture
+
 
     /// Load Models
     Canis::Model cubeModel = Canis::LoadModel("assets/models/cube.obj");
     Canis::Model grassModel = Canis::LoadModel("assets/models/plants.obj");
+    Canis::Model fireModel = Canis::LoadModel("assets/models/fire.obj");
     /// END OF LOADING MODEL
 
     // Load Map into 3d array
@@ -196,6 +206,15 @@ int main(int argc, char *argv[])
                     entity.albedo = &knux;
                     entity.specular = &textureSpecular;
                     entity.model = &cubeModel;
+                    entity.shader = &shader;
+                    entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
+                    world.Spawn(entity);
+                    break;
+                case 8: // places a stone block
+                    entity.tag = "fire";
+                    entity.albedo = &fireList[0];
+                    entity.specular = &textureSpecular;
+                    entity.model = &fireModel;
                     entity.shader = &shader;
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
                     world.Spawn(entity);
