@@ -236,7 +236,7 @@ int main(int argc, char *argv[])
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //How to move a specific tagged thing (use for fire)
-        std::vector<Canis::Entity*> glass = world.GetEntitiesWithTag("");
+        std::vector<Canis::Entity*> glass = world.GetEntitiesWithTag("fire");
         for(Canis::Entity* g : glass)
         {
             g->transform.rotation.x += deltaTime;
