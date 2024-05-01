@@ -40,7 +40,7 @@ namespace Canis
             shader->Use();
             shader->SetVec3("COLOR", 1.0f, 1.0f, 1.0f);
             shader->SetVec3("VIEWPOS", m_camera.Position);
-            shader->SetInt("NUMBEROFPOINTLIGHTS", 4);
+            shader->SetInt("NUMBEROFPOINTLIGHTS", 5);
             shader->SetFloat("TIME", SDL_GetTicks() / 1000.0f);
 
             UpdateLights(*shader);

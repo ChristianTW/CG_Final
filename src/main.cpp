@@ -93,11 +93,38 @@ int main(int argc, char *argv[])
     Canis::GLTexture textureSpecular = Canis::LoadImageGL("assets/textures/container2_specular.png", true);
     /// End of Image Loading
     /// Fire Texture
-    Canis::GLTexture fireList[4] = {
+    Canis::GLTexture fireList[31] = {
         Canis::LoadImageGL("assets/textures/fire_textures/fire_1.png", true),
         Canis::LoadImageGL("assets/textures/fire_textures/fire_2.png", true),
         Canis::LoadImageGL("assets/textures/fire_textures/fire_3.png", true),
-        Canis::LoadImageGL("assets/textures/fire_textures/fire_4.png", true)
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_4.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_5.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_6.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_7.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_8.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_9.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_10.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_11.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_12.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_13.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_14.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_15.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_16.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_17.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_18.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_19.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_20.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_21.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_22.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_23.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_24.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_25.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_26.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_27.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_28.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_29.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_30.png", true),
+        Canis::LoadImageGL("assets/textures/fire_textures/fire_31.png", true)
     };
     /// End if fire texture
 
@@ -142,7 +169,7 @@ int main(int argc, char *argv[])
                     {
                     case 0:
                         break;
-                    case 1:  
+                    case 1:  // places grass
                         entity.tag = "grass";
                         entity.albedo = &grassTexture;
                         entity.specular = &textureSpecular;
@@ -151,7 +178,7 @@ int main(int argc, char *argv[])
                         entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
                         world.Spawn(entity);
                         break;
-                    case 2: // places a glass block
+                    case 2: // places a poppy
                         entity.tag = "poppy";
                         entity.albedo = &poppyTexture;
                         entity.specular = &textureSpecular;
@@ -210,7 +237,7 @@ int main(int argc, char *argv[])
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
                     world.Spawn(entity);
                     break;
-                case 8: // places a stone block
+                case 8: // places fire
                     entity.tag = "fire";
                     entity.albedo = &fireList[0];
                     entity.specular = &textureSpecular;
@@ -229,17 +256,25 @@ int main(int argc, char *argv[])
     double deltaTime = 0.0;
     double fps = 0.0;
 
+    double timeS = 0.0;
+
     // Application loop
     while (inputManager.Update(Canis::GetProjectConfig().width, Canis::GetProjectConfig().heigth))
     {
         deltaTime = frameRateManager.StartFrame();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        timeS += deltaTime;
+
         //How to move a specific tagged thing (use for fire)
         std::vector<Canis::Entity*> glass = world.GetEntitiesWithTag("fire");
         for(Canis::Entity* g : glass)
         {
-            g->transform.rotation.x += deltaTime;
+            g->albedo = &fireList[int(fmod(timeS * 20, 31))];
+            //Canis::Log(std::to_string(g->transform.position.x));
+            //Canis::Log(std::to_string(g->transform.position.y));
+            //Canis::Log(std::to_string(g->transform.position.z));
+            //_world.GetPointLight(vec3(5.0f, 1.0f, 8.5f));
         }
 
         world.Update(deltaTime);
@@ -309,18 +344,23 @@ void SpawnLights(Canis::World &_world)
 
     _world.SpawnPointLight(pointLight);
 
-    pointLight.position = vec3(0.0f, 0.0f, 1.0f);
-    pointLight.ambient = vec3(4.0f, 0.0f, 0.0f);
+    pointLight.position = vec3(0.0f, 0.0f, 28.0f);
+    pointLight.ambient = vec3(5.0f, 0.0f, 0.0f);
 
     _world.SpawnPointLight(pointLight);
 
-    pointLight.position = vec3(-2.0f);
-    pointLight.ambient = vec3(0.0f, 4.0f, 0.0f);
+    pointLight.position = vec3(-18.0f);
+    pointLight.ambient = vec3(0.0f, 5.0f, 0.0f);
 
     _world.SpawnPointLight(pointLight);
 
-    pointLight.position = vec3(2.0f);
-    pointLight.ambient = vec3(0.0f, 0.0f, 4.0f);
+    pointLight.position = vec3(18.0f);
+    pointLight.ambient = vec3(0.0f, 0.0f, 5.0f);
+
+    _world.SpawnPointLight(pointLight);
+
+    pointLight.position = vec3(5.0f, 1.0f, 8.5f);
+    pointLight.ambient = vec3(1.0f, 1.0f, 0.01f);
 
     _world.SpawnPointLight(pointLight);
 }
