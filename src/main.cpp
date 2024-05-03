@@ -164,7 +164,7 @@ int main(int argc, char *argv[])
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
                     world.Spawn(entity);
                     break;
-                case 2: // places a grass block
+                case 2: // places a grass, a poppy, or nothing, randomly
                     switch (randomNum)
                     {
                     case 0:
@@ -210,7 +210,7 @@ int main(int argc, char *argv[])
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
                     world.Spawn(entity);
                     break;
-                case 5: // places a stone block
+                case 5: // places a brick block
                     entity.tag = "brick";
                     entity.albedo = &brickTexture;
                     entity.specular = &textureSpecular;
@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
                     world.Spawn(entity);
                     break;
-                case 6: // places a stone block
+                case 6: // places a grass block
                     entity.tag = "grassBlock";
                     entity.albedo = &grassBlockTexture;
                     entity.specular = &textureSpecular;
@@ -228,7 +228,7 @@ int main(int argc, char *argv[])
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
                     world.Spawn(entity);
                     break;
-                case 7: // places a stone block
+                case 7: // places a knux block
                     entity.tag = "knux";
                     entity.albedo = &knux;
                     entity.specular = &textureSpecular;
@@ -269,6 +269,7 @@ int main(int argc, char *argv[])
 
         timeS += deltaTime;
 
+        // Makes the fire light flicker (using diffuse because ambient is broken)
         if (int(fmod(timeS * 100, 10)) ==5)
         {
             fireLight->diffuse = vec3(0.4f, 0.4f, 0.01f);
