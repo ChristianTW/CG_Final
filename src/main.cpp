@@ -258,6 +258,9 @@ int main(int argc, char *argv[])
 
     double timeS = 0.0;
 
+    // Fire point light
+    Canis::PointLight *fireLight = world.GetPointLight(vec3(5.0f, 1.0f, 8.5f));
+
     // Application loop
     while (inputManager.Update(Canis::GetProjectConfig().width, Canis::GetProjectConfig().heigth))
     {
@@ -265,6 +268,13 @@ int main(int argc, char *argv[])
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         timeS += deltaTime;
+
+        if (int(fmod(timeS * 100, 10)) ==5)
+        {
+            fireLight->ambient = vec3(0.4f, 0.4f, 0.01f);
+        } else {
+            fireLight->ambient = vec3(0.7f, 0.7f, 0.1f);
+        }
 
         //How to move a specific tagged thing (use for fire)
         std::vector<Canis::Entity*> glass = world.GetEntitiesWithTag("fire");
@@ -274,7 +284,6 @@ int main(int argc, char *argv[])
             //Canis::Log(std::to_string(g->transform.position.x));
             //Canis::Log(std::to_string(g->transform.position.y));
             //Canis::Log(std::to_string(g->transform.position.z));
-            //_world.GetPointLight(vec3(5.0f, 1.0f, 8.5f));
         }
 
         world.Update(deltaTime);
@@ -345,22 +354,22 @@ void SpawnLights(Canis::World &_world)
     _world.SpawnPointLight(pointLight);
 
     pointLight.position = vec3(0.0f, 0.0f, 28.0f);
-    pointLight.ambient = vec3(5.0f, 0.0f, 0.0f);
+    pointLight.ambient = vec3(8.0f, 0.0f, 0.0f);
 
     _world.SpawnPointLight(pointLight);
 
     pointLight.position = vec3(-18.0f);
-    pointLight.ambient = vec3(0.0f, 5.0f, 0.0f);
+    pointLight.ambient = vec3(0.0f, 10.0f, 0.0f);
 
     _world.SpawnPointLight(pointLight);
 
     pointLight.position = vec3(18.0f);
-    pointLight.ambient = vec3(0.0f, 0.0f, 5.0f);
+    pointLight.ambient = vec3(0.0f, 0.0f, 6.0f);
 
     _world.SpawnPointLight(pointLight);
 
     pointLight.position = vec3(5.0f, 1.0f, 8.5f);
-    pointLight.ambient = vec3(1.0f, 1.0f, 0.01f);
+    pointLight.ambient = vec3(0.0f, 0.0f, 0.0f);
 
     _world.SpawnPointLight(pointLight);
 }
