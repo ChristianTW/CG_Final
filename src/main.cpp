@@ -271,9 +271,9 @@ int main(int argc, char *argv[])
 
         if (int(fmod(timeS * 100, 10)) ==5)
         {
-            fireLight->ambient = vec3(0.4f, 0.4f, 0.01f);
+            fireLight->diffuse = vec3(0.4f, 0.4f, 0.01f);
         } else {
-            fireLight->ambient = vec3(0.7f, 0.7f, 0.1f);
+            fireLight->diffuse = vec3(0.7f, 0.7f, 0.1f);
         }
 
         //How to move a specific tagged thing (use for fire)
