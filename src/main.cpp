@@ -93,6 +93,7 @@ int main(int argc, char *argv[])
     Canis::GLTexture knux = Canis::LoadImageGL("assets/textures/KnuxHolding.jpg", true);
     Canis::GLTexture textureSpecular = Canis::LoadImageGL("assets/textures/container2_specular.png", true);
     Canis::GLTexture specShiny = Canis::LoadImageGL("assets/textures/white_texture.png", true);
+    Canis::GLTexture woodSpec = Canis::LoadImageGL("assets/textures/woodSpecular.png", true);
     /// End of Image Loading
     /// Fire Texture
     Canis::GLTexture fireList[31] = {
@@ -197,7 +198,7 @@ int main(int argc, char *argv[])
                 case 3: // places a wood block
                     entity.tag = "wood";
                     entity.albedo = &woodTexture;
-                    entity.specular = &textureSpecular;
+                    entity.specular = &woodSpec;
                     entity.model = &cubeModel;
                     entity.shader = &shader;
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
@@ -233,7 +234,7 @@ int main(int argc, char *argv[])
                 case 7: // places a knux block
                     entity.tag = "knux";
                     entity.albedo = &knux;
-                    entity.specular = &textureSpecular;
+                    entity.specular = &specShiny;
                     entity.model = &cubeModel;
                     entity.shader = &shader;
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
