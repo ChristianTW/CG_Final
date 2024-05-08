@@ -68,6 +68,7 @@ int main(int argc, char *argv[])
     shader.SetBool("WIND", false);
     shader.UnUse();
 
+    // grass shader
     Canis::Shader grassShader;
     grassShader.Compile("assets/shaders/hello_shader.vs", "assets/shaders/hello_shader.fs");
     grassShader.AddAttribute("aPosition");
@@ -91,6 +92,7 @@ int main(int argc, char *argv[])
     Canis::GLTexture grassBlockTexture = Canis::LoadImageGL("assets/textures/grass_block_top.png", true);
     Canis::GLTexture knux = Canis::LoadImageGL("assets/textures/KnuxHolding.jpg", true);
     Canis::GLTexture textureSpecular = Canis::LoadImageGL("assets/textures/container2_specular.png", true);
+    Canis::GLTexture specShiny = Canis::LoadImageGL("assets/textures/white_texture.png", true);
     /// End of Image Loading
     /// Fire Texture
     Canis::GLTexture fireList[31] = {
@@ -158,7 +160,7 @@ int main(int argc, char *argv[])
                 case 1: // places a glass block
                     entity.tag = "glass";
                     entity.albedo = &texture;
-                    entity.specular = &textureSpecular;
+                    entity.specular = &specShiny;
                     entity.model = &cubeModel;
                     entity.shader = &shader;
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
@@ -204,7 +206,7 @@ int main(int argc, char *argv[])
                 case 4: // places a stone block
                     entity.tag = "stone";
                     entity.albedo = &stoneTexture;
-                    entity.specular = &textureSpecular;
+                    entity.specular = &specShiny;
                     entity.model = &cubeModel;
                     entity.shader = &shader;
                     entity.transform.position = vec3(x + 0.0f, y + 0.0f, z + 0.0f);
